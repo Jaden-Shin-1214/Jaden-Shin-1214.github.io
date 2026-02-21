@@ -279,6 +279,33 @@
     .work-text{
       flex:1;
     }
+    
+    .edu-degree{
+      font-weight:600;
+      font-size:18px;
+    }
+    
+    .edu-univ{
+      font-weight:500;
+      color:var(--muted);
+    }
+    
+    .edu-period{
+      margin-top:4px;
+      font-size:15px;
+      color:var(--muted);
+    }
+    
+    .edu-details{
+      margin-top:10px;
+      padding-left:18px;
+      font-size:15px;
+    }
+    
+    .edu-details li{
+      margin-bottom:4px;
+    }
+    
     /* 모바일 대응 */
     @media (max-width:700px){
       .pubRow{
@@ -456,20 +483,32 @@
       <section class="section3">
         <h2 class="sectionTitle">Academic History</h2>
         <hr class="sectionRule">
-
+      
         <div class="educationBlock">
           <div class="edu-row">
-        
+      
             <!-- LEFT : logo -->
             <img class="edu-logo"
                  src="AboutPageAssets/teasers/yonsei_teaser.png"
                  alt="Yonsei University">
-        
+      
             <!-- RIGHT : text -->
             <div class="edu-text">
-              <b>Yonsei University</b>, Seoul, South Korea<br>
-              B.S. in Electrical and Electronic Engineering<br>
-              <span class="muted">2020 – 2026</span>
+      
+              <div class="edu-degree">
+                B.S. in Electrical and Electronic Engineering |
+                <span class="edu-univ">Yonsei University</span>
+              </div>
+      
+              <div class="edu-period">
+                Mar. 2020 – Mar. 2026
+              </div>
+      
+              <ul class="edu-details">
+                <li>GPA: 4.1 / 4.3</li>
+                <li>Leave of absence for military service: Nov. 2021 – May. 2023</li>
+              </ul>
+      
             </div>
           </div>
         </div>
