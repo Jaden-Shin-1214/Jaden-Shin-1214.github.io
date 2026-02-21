@@ -251,7 +251,24 @@
       height:1px;
       background:var(--line);
     }
-        
+    
+    /* Academic logo (bigger than lab logo) */
+    .edu-row{
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
+    }
+    
+    .edu-logo{
+      height:38px;      /* ⭐ 조금 더 크게 */
+      width:auto;
+      margin-top:4px;   /* 텍스트 baseline 정렬 */
+    }
+    
+    .edu-text{
+      flex:1;
+    }
+    
     /* 모바일 대응 */
     @media (max-width:700px){
       .pubRow{
@@ -407,9 +424,20 @@
         <hr class="sectionRule">
 
         <div class="educationBlock">
-          <b>Yonsei University</b>, Seoul, South Korea<br>
-          B.S. in Electrical and Electronic Engineering<br>
-          <span class="muted">2020 – 2026 </span>
+          <div class="edu-row">
+        
+            <!-- LEFT : logo -->
+            <img class="edu-logo"
+                 src="AboutPageAssets/teasers/yonsei_teaser.png"
+                 alt="Yonsei University">
+        
+            <!-- RIGHT : text -->
+            <div class="edu-text">
+              <b>Yonsei University</b>, Seoul, South Korea<br>
+              B.S. in Electrical and Electronic Engineering<br>
+              <span class="muted">2020 – 2026</span>
+            </div>
+          </div>
         </div>
       </section>
 
