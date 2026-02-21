@@ -10,13 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap" rel="stylesheet">
 
-  <!-- Optional: keep your existing external CSS if you will add it -->
-  <!-- <link href="AboutPageAssets/styles/aboutPageStyle.css" rel="stylesheet" type="text/css"> -->
-
   <style>
-    /* =======================
-       Base
-    ======================= */
     :root{
       --text:#282727;
       --muted:#6b6b6b;
@@ -43,7 +37,6 @@
       margin:40px auto;
       padding:0 18px 60px;
     }
-
     hr{
       border:0;
       height:1px;
@@ -52,16 +45,17 @@
     }
 
     /* =======================
-       Header
+       Header (stacked)
     ======================= */
     header{
-      display:grid;
-      grid-template-columns: 260px 1fr 160px;
-      gap:24px;
-      align-items:start;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:center;
+      text-align:center;
     }
     .profilePhoto{
-      padding-top:8px;
+      width:min(260px, 70vw);
     }
     .profilePhoto img{
       width:100%;
@@ -72,6 +66,8 @@
     }
 
     .profileHeader{
+      width:100%;
+      max-width:760px;
       font-size:16px;
     }
     .profileHeader h1{
@@ -79,18 +75,41 @@
       font-size:34px;
       letter-spacing:-0.2px;
     }
-
-    .socialNetworkNavBar{
-      display:flex;
-      gap:12px;
-      justify-content:flex-end;
-      align-items:flex-start;
-      padding-top:14px;
-      flex-wrap:wrap;
+    .profileHeader p{
+      margin:0;
+      color:var(--text);
     }
-    .socialNetworkNav img{
-      width:30px;
-      height:30px;
+
+    /* =======================
+       Links row (Scholar / GitHub)
+    ======================= */
+    .topLinksRow{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .topLinksRow a{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--line);
+      background:var(--card);
+      color:var(--text);
+      padding:8px 12px;
+      border-radius:10px;
+      font-size:15px;
+      text-decoration:none;
+    }
+    .topLinksRow a:hover{
+      filter:brightness(0.98);
+      text-decoration:none;
+    }
+    .topLinksRow img{
+      width:20px;
+      height:20px;
       display:block;
     }
 
@@ -101,11 +120,12 @@
       font-size:20px;
       margin:0;
     }
-    .section1, .section2, .section3{
-      margin-top:26px;
+    .section0, .section1, .section2, .section3{
+      margin-top:30px;
       font-size:17px;
     }
 
+    /* Work experience */
     .internship{
       margin-top:10px;
     }
@@ -115,13 +135,10 @@
       margin-right:6px;
     }
 
-    /* =======================
-       Publication blocks
-    ======================= */
+    /* Publications blocks */
     .pubBlock{
       margin-top:18px;
     }
-
     .sectionContent img{
       width:100%;
       height:auto;
@@ -130,13 +147,12 @@
       background:#eee;
       border:1px solid var(--line);
     }
-
     .section2Content{
       margin-top:10px;
     }
     .sectionContentTitle{
       font-size:18px;
-      margin:0 0 2px 0; /* remove space with authors */
+      margin:0 0 2px 0;
       line-height:1.35;
     }
     .sectionContentSubTitle{
@@ -148,22 +164,14 @@
       color:var(--text);
     }
 
-    /* =======================
-       Buttons row (Project / Abstract / Paper / Code)
-    ======================= */
+    /* Buttons row (Project / Paper / Code only) */
     .externalResourcesNav{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
       margin-top:10px;
     }
-    .dropdown{
-      font-size:17px;
-      position:relative;
-    }
-    .dropdown > a,
-    .dropdown > button{
-      appearance:none;
+    .chipLink{
       border:1px solid var(--line);
       background:var(--card);
       color:var(--text);
@@ -175,90 +183,45 @@
       gap:8px;
       font-family:inherit;
       font-size:15px;
+      text-decoration:none;
     }
-    .dropdown > a:hover,
-    .dropdown > button:hover{
+    .chipLink:hover{
       filter:brightness(0.98);
       text-decoration:none;
     }
 
-    /* Abstract dropdown content */
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      z-index:20;
-      left:0;
-      top:44px;
-      width:min(720px, calc(100vw - 36px));
-      max-height:360px;
-      overflow:auto;
-      padding:12px 12px;
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:12px;
-      box-shadow:0 12px 40px rgba(0,0,0,.08);
-    }
-    .dropdown.open .dropdown-content{
-      display:block;
-    }
-    .dropdown-content p{
-      margin:0;
+    /* Ongoing experiments */
+    .expList{
+      margin:10px 0 0 0;
+      padding-left:18px;
       color:var(--text);
-      font-size:14.5px;
-      line-height:1.55;
-      text-align:left;
-      white-space:normal;
     }
-
-    /* Footer */
-    footer{
-      margin-top:34px;
-      padding-top:14px;
-      border-top:1px solid var(--line);
+    .expList li{
+      margin:6px 0;
+    }
+    .muted{
       color:var(--muted);
-      font-size:13px;
-    }
-    .footerDisclaimer{
-      margin:0;
     }
 
-    /* Responsive */
-    @media (max-width: 900px){
-      header{
-        grid-template-columns: 220px 1fr;
-        grid-template-rows: auto auto;
-      }
-      .socialNetworkNavBar{
-        grid-column: 1 / -1;
-        justify-content:flex-start;
-        padding-top:0;
-      }
-    }
     @media (max-width: 620px){
-      header{
-        grid-template-columns: 1fr;
-      }
-      .profilePhoto{
-        max-width:220px;
-      }
+      .profilePhoto{ width:min(220px, 75vw); }
     }
   </style>
 </head>
 
-<body link="#9b9b9b" vlink="#9b9b9b" alink="#282727">
+<body>
   <div class="wrap">
 
-    <!-- Header content -->
+    <!-- Header: photo + name + bio stacked -->
     <header>
       <div class="profilePhoto">
-        <!-- Put your profile image here -->
         <img src="AboutPageAssets/images/profile1.jpg" alt="Profile photo">
       </div>
 
       <section class="profileHeader">
         <h1>Your Name</h1>
         <hr>
-        <p style="margin:0;">
+        <p>
           Write your intro here. Include advisor links, collaborations, and interests.
           <br><br>
           Short research summary paragraph.
@@ -267,39 +230,34 @@
         </p>
       </section>
 
-      <aside class="socialNetworkNavBar" aria-label="Social links">
-        <div class="socialNetworkNav">
-          <a href="AboutPageAssets/images/cv.pdf" target="_blank" rel="noopener">
-            <img src="AboutPageAssets/images/cv.png" alt="CV">
-          </a>
-        </div>
-        <div class="socialNetworkNav">
-          <a href="mailto:your_email@domain.com">
-            <img src="AboutPageAssets/images/mail.png" alt="Email">
-          </a>
-        </div>
-        <div class="socialNetworkNav">
-          <a href="https://scholar.google.com/" target="_blank" rel="noopener">
-            <img src="AboutPageAssets/images/scholar.jpg" alt="Google Scholar">
-          </a>
-        </div>
-        <div class="socialNetworkNav">
-          <a href="https://www.linkedin.com/" target="_blank" rel="noopener">
-            <img src="AboutPageAssets/images/linkedin.png" alt="LinkedIn">
-          </a>
-        </div>
-        <div class="socialNetworkNav">
-          <a href="https://github.com/" target="_blank" rel="noopener">
-            <img src="AboutPageAssets/images/github.png" alt="GitHub">
-          </a>
-        </div>
-      </aside>
+      <!-- One-line links row (Scholar + GitHub only) -->
+      <nav class="topLinksRow" aria-label="Top links">
+        <a href="https://scholar.google.com/" target="_blank" rel="noopener">
+          <img src="AboutPageAssets/images/scholar.jpg" alt="">
+          Google Scholar
+        </a>
+        <a href="https://github.com/" target="_blank" rel="noopener">
+          <img src="AboutPageAssets/images/github.png" alt="">
+          GitHub
+        </a>
+      </nav>
     </header>
 
     <!-- Main content -->
     <section class="mainContent">
 
-      <!-- Work Experience -->
+      <!-- Section 0: Interest Areas -->
+      <section class="section0">
+        <h2 class="sectionTitle">Interest Areas</h2>
+        <hr class="sectionRule">
+        <p style="margin:0;">
+          • Area 1 (e.g., Generative Models / Diffusion)<br>
+          • Area 2 (e.g., 3D Vision / Reconstruction)<br>
+          • Area 3 (e.g., Human Motion / Camera Control)
+        </p>
+      </section>
+
+      <!-- Section 1: Work Experience -->
       <section class="section1">
         <h2 class="sectionTitle">Work Experience</h2>
         <hr class="sectionRule">
@@ -329,11 +287,10 @@
         </div>
       </section>
 
-      <!-- Publications -->
+      <!-- Section 2: Publications -->
       <section class="section2">
-        <h2 class="sectionTitle">Selected Publications</h2>
+        <h2 class="sectionTitle">Publications</h2>
         <hr class="sectionTitleRule">
-        <hr class="sectionTitleRule2">
 
         <!-- Publication 1 -->
         <div class="pubBlock">
@@ -350,19 +307,9 @@
           </section>
 
           <aside class="externalResourcesNav">
-            <div class="dropdown"><a href="#" target="_blank" rel="noopener"><b>Project Page</b></a></div>
-
-            <div class="dropdown js-abstract">
-              <button type="button"><b>Abstract</b> ▾</button>
-              <div class="dropdown-content">
-                <p>
-                  Paste abstract here. This dropdown is pure HTML/CSS/JS (no external dependencies).
-                </p>
-              </div>
-            </div>
-
-            <div class="dropdown"><a href="#" target="_blank" rel="noopener"><b>Paper</b></a></div>
-            <div class="dropdown"><a href="#" target="_blank" rel="noopener"><b>Code</b></a></div>
+            <a class="chipLink" href="#" target="_blank" rel="noopener"><b>Project</b></a>
+            <a class="chipLink" href="#" target="_blank" rel="noopener"><b>Paper</b></a>
+            <a class="chipLink" href="#" target="_blank" rel="noopener"><b>Code</b></a>
           </aside>
         </div>
 
@@ -383,75 +330,29 @@
           </section>
 
           <aside class="externalResourcesNav">
-            <div class="dropdown"><a href="#" target="_blank" rel="noopener"><b>Project Page</b></a></div>
-
-            <div class="dropdown js-abstract">
-              <button type="button"><b>Abstract</b> ▾</button>
-              <div class="dropdown-content">
-                <p>Abstract here.</p>
-              </div>
-            </div>
-
-            <div class="dropdown"><a href="#" target="_blank" rel="noopener"><b>Paper</b></a></div>
-            <div class="dropdown"><a href="#" target="_blank" rel="noopener"><b>Code</b></a></div>
+            <a class="chipLink" href="#" target="_blank" rel="noopener"><b>Project</b></a>
+            <a class="chipLink" href="#" target="_blank" rel="noopener"><b>Paper</b></a>
+            <a class="chipLink" href="#" target="_blank" rel="noopener"><b>Code</b></a>
           </aside>
         </div>
       </section>
 
-      <!-- Honors -->
+      <!-- Section 3: Ongoing Experiments -->
       <section class="section3">
-        <h2 class="sectionTitle">Honors</h2>
+        <h2 class="sectionTitle">Ongoing Experiments</h2>
         <hr class="sectionRule">
 
-        <b>Award Name</b>, 2025 <br>
-        Award description <br><br>
-
-        <b>Fellowship Name</b>, 2024 <br>
-        Winner <br><br>
-
-        <footer>
-          <p class="footerDisclaimer">
-            Template inspired by an academic homepage layout.
-          </p>
-        </footer>
+        <p style="margin:0;" class="muted">
+          (Add short, concrete experiment bullets with links if needed.)
+        </p>
+        <ul class="expList">
+          <li><b>Experiment A:</b> one-line description (dataset / metric / target).</li>
+          <li><b>Experiment B:</b> one-line description (ablation / baseline / insight).</li>
+          <li><b>Experiment C:</b> one-line description (next step).</li>
+        </ul>
       </section>
 
     </section>
   </div>
-
-  <script>
-    // Toggle abstract dropdown
-    (function () {
-      const toggles = document.querySelectorAll(".js-abstract > button");
-      const dropdowns = document.querySelectorAll(".js-abstract");
-
-      function closeAll(exceptEl) {
-        dropdowns.forEach(d => {
-          if (d !== exceptEl) d.classList.remove("open");
-        });
-      }
-
-      toggles.forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const parent = e.currentTarget.closest(".js-abstract");
-          const isOpen = parent.classList.contains("open");
-          closeAll(parent);
-          parent.classList.toggle("open", !isOpen);
-        });
-      });
-
-      // Close on outside click
-      document.addEventListener("click", (e) => {
-        const anyOpen = document.querySelector(".js-abstract.open");
-        if (!anyOpen) return;
-        if (!anyOpen.contains(e.target)) closeAll(null);
-      });
-
-      // ESC closes
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeAll(null);
-      });
-    })();
-  </script>
 </body>
 </html>
