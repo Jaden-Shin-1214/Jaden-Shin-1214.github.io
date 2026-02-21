@@ -112,10 +112,10 @@
       height:20px;
       display:block;
     }
-    
+
     /* Work experience logos */
     .lab-logo{
-      height:22px;        /* 로고 높이 (여기 숫자만 조절하면 됨) */
+      height:22px;
       width:auto;
       vertical-align:middle;
       margin-right:8px;
@@ -137,42 +137,8 @@
     .internship{
       margin-top:10px;
     }
-    .adobe-logo, .naver-logo{
-      width:18px;
-      vertical-align:middle;
-      margin-right:6px;
-    }
 
-    /* Publications blocks */
-    .pubBlock{
-      margin-top:18px;
-    }
-    .sectionContent img, .sectionContent video{
-      width:100%;
-      height:auto;
-      border-radius:14px;
-      display:block;
-      background:#eee;
-      border:1px solid var(--line);
-    }
-    .section2Content{
-      margin-top:10px;
-    }
-    .sectionContentTitle{
-      font-size:18px;
-      margin:0 0 2px 0;
-      line-height:1.35;
-    }
-    .sectionContentSubTitle{
-      font-size:17px;
-      margin:0;
-      color:var(--muted);
-    }
-    .sectionContentSubTitle em{
-      color:var(--text);
-    }
-
-    /* Buttons row (Project / Paper / Code only) */
+    /* Buttons row */
     .externalResourcesNav{
       display:flex;
       flex-wrap:wrap;
@@ -206,79 +172,160 @@
       margin-top:10px;
       font-size:17px;
     }
-    
+
     /* ===== Publication horizontal layout ===== */
+    .pubBlock{
+      margin-top:18px;
+      padding:14px;
+      border:1px solid rgba(231,231,231,.8);
+      border-radius:16px;
+      background: rgba(255,255,255,.75);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .pubBlock:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+      background: rgba(255,255,255,.9);
+    }
+
     .pubRow{
       display:flex;
       gap:22px;
-      align-items:center;
+      align-items:center; /* center align teaser & text block */
     }
-    
+
     .pubTeaser{
-      flex:0 0 260px;   /* 티저 너비 */
+      flex:0 0 260px;
     }
-    
     .pubTeaser img,
     .pubTeaser video{
       width:100%;
       border-radius:12px;
       border:1px solid var(--line);
-    }
-    
-    .pubInfo{
-      flex:1;
-    }
-    
-    /* 모바일 대응 */
-    @media (max-width:700px){
-      .pubRow{
-        flex-direction:column;
-      }
-      .pubTeaser{
-        flex:unset;
-        width:100%;
-      }
+      display:block;
+      background:#eee;
     }
 
-    @media (max-width: 620px){
+    .pubInfo{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .sectionContentTitle{
+      font-size:18px;
+      margin:0 0 2px 0;
+      line-height:1.35;
+    }
+    .sectionContentSubTitle{
+      font-size:17px;
+      margin:0;
+      color:var(--muted);
+    }
+
+    /* Mobile */
+    @media (max-width:700px){
+      .pubRow{ flex-direction:column; align-items:stretch; }
+      .pubTeaser{ flex:unset; width:100%; }
+    }
+
+    @media (max-width:620px){
       .profilePhoto{ width:min(220px, 75vw); }
+    }
+
+    /* ===== Apple-ish scroll interactions ===== */
+
+    /* top progress bar */
+    .scrollProgress{
+      position:fixed;
+      top:0; left:0;
+      height:3px;
+      width:0%;
+      background: rgba(40,39,39,.85);
+      z-index:9999;
+    }
+
+    /* sticky "glass" header wrapper */
+    .headerWrap{
+      position:sticky;
+      top:0;
+      z-index:50;
+      padding-top:14px;
+      padding-bottom:10px;
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(231,231,231,.55);
+      transition: box-shadow .25s ease, background .25s ease, border-color .25s ease;
+    }
+    .headerWrap.isScrolled{
+      background: rgba(255,255,255,.82);
+      border-bottom: 1px solid rgba(231,231,231,.9);
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+
+    /* reveal animation */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .55s ease, transform .55s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* smoother scrolling feel */
+    html{ scroll-behavior:smooth; }
+
+    /* respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .reveal, .pubBlock, .headerWrap{ transition:none; }
+      .reveal{ opacity:1; transform:none; }
     }
   </style>
 </head>
 
 <body>
+  <!-- Top scroll progress bar -->
+  <div class="scrollProgress" id="scrollProgress"></div>
+
   <div class="wrap">
 
-    <!-- Header: photo + name + bio stacked -->
-    <header>
-      <div class="profilePhoto">
-        <img src="AboutPageAssets/images/profile1.jpg" alt="Profile photo">
-      </div>
+    <!-- Sticky glass header wrapper -->
+    <div class="headerWrap" id="headerWrap">
+      <header>
+        <div class="profilePhoto">
+          <img src="AboutPageAssets/images/profile1.jpg" alt="Profile photo">
+        </div>
 
-      <section class="profileHeader">
-        <h1>Youngjin Shin</h1>
-        <hr>
-        <p>
-          Hello! I am Youngjin Shin, a research intern in KAIST AI . 
-          My work focuses on understanding and improving AI models by analyzing their internal mechanisms and representations. 
-          I am particularly interested in representation learning and studying how models learn and reason through structured analysis.
-          <br><br>
-          Contact: <a href="mailto:your_email@domain.com">yeongjins916@gmail.com</a>
-        </p>
-      </section>
+        <section class="profileHeader">
+          <h1>Youngjin Shin</h1>
+          <hr>
+          <p>
+            Hello! I am Youngjin Shin, a research intern in KAIST AI.
+            My work focuses on understanding and improving AI models by analyzing their internal mechanisms and representations.
+            I am particularly interested in representation learning and studying how models learn and reason through structured analysis.
+            <br><br>
+            Contact: <a href="mailto:yeongjins916@gmail.com">yeongjins916@gmail.com</a>
+          </p>
+        </section>
 
-      <!-- One-line links row (Scholar + GitHub only) -->
-      <nav class="topLinksRow" aria-label="Top links">
-        <a href="https://scholar.google.com/citations?user=W_JzMpMAAAAJ&hl=ko" target="_blank" rel="noopener">
-          <img src="AboutPageAssets/images/scholar.jpg" alt="">
-          Google Scholar
-        </a>
-        <a href="https://github.com/Jaden-Shin-1214" target="_blank" rel="noopener">
-          <img src="AboutPageAssets/images/github.png" alt="">
-          GitHub
-        </a>
-      </nav>
-    </header>
+        <nav class="topLinksRow" aria-label="Top links">
+          <a href="https://scholar.google.com/citations?user=W_JzMpMAAAAJ&hl=ko" target="_blank" rel="noopener">
+            <img src="AboutPageAssets/images/scholar.jpg" alt="">
+            Google Scholar
+          </a>
+          <a href="https://github.com/Jaden-Shin-1214" target="_blank" rel="noopener">
+            <img src="AboutPageAssets/images/github.png" alt="">
+            GitHub
+          </a>
+        </nav>
+      </header>
+    </div>
 
     <!-- Main content -->
     <section class="mainContent">
@@ -304,7 +351,7 @@
           <b>Research Intern at
             <a href="https://cvlab.kaist.ac.kr/" target="_blank" rel="noopener">Computer Vision Lab</a>
           </b>, KAIST AI, Seoul, South Korea <span class="muted">(2025.09 – Present)</span><br>
-          Mentor: Seongryong Kim</a>
+          Mentor: Seongryong Kim
         </div>
 
         <br>
@@ -314,7 +361,7 @@
           <b>Research Intern at
             <a href="http://insight.yonsei.ac.kr/gnuboard/" target="_blank" rel="noopener">Multi-dimensional Insight Lab</a>
           </b>, Yonsei University, Seoul, South Korea <span class="muted">(2025.01 – 2025.08)</span><br>
-          Mentor: Sanghoon Lee</a><br>
+          Mentor: Sanghoon Lee
         </div>
       </section>
 
@@ -323,70 +370,56 @@
         <h2 class="sectionTitle">Publications</h2>
         <hr class="sectionTitleRule">
 
-        <!-- Publication 2 -->
+        <!-- Publication: CORAL -->
         <div class="pubBlock">
-      
           <div class="pubRow">
-        
-            <!-- LEFT : teaser -->
             <div class="pubTeaser">
               <img src="AboutPageAssets/teasers/paper2_teaser.png" alt="Teaser">
             </div>
-        
-            <!-- RIGHT : info -->
+
             <div class="pubInfo">
-        
               <h2 class="sectionContentTitle">
                 CORAL: Correspondence Alignment for Improved Virtual Try-On
               </h2>
-        
+
               <h3 class="sectionContentSubTitle">
                 Jiyoung Kim, <b>Youngjin Shin</b>, Siyoon Jin, Dahyun Chung,
                 Jisu Nam, Tongmin Kim, Jongjae Park, Hyeonwoo Kang, Seungryong Kim
               </h3>
-        
+
               <aside class="externalResourcesNav">
-                <a class="chipLink" href="https://cvlab-kaist.github.io/CORAL/" target="_blank"><b>Project</b></a>
-                <a class="chipLink" href="https://arxiv.org/abs/2602.17636" target="_blank"><b>Paper</b></a>
-                <a class="chipLink" href="https://github.com/cvlab-kaist/CORAL" target="_blank"><b>Code</b></a>
+                <a class="chipLink" href="https://cvlab-kaist.github.io/CORAL/" target="_blank" rel="noopener"><b>Project</b></a>
+                <a class="chipLink" href="https://arxiv.org/abs/2602.17636" target="_blank" rel="noopener"><b>Paper</b></a>
+                <a class="chipLink" href="https://github.com/cvlab-kaist/CORAL" target="_blank" rel="noopener"><b>Code</b></a>
               </aside>
-        
             </div>
-        
           </div>
-        
         </div>
 
-        <br><br>
+        <br>
 
-        <!-- Publication 1 -->
+        <!-- Publication: APSIPA -->
         <div class="pubBlock">
-        
           <div class="pubRow">
-        
             <div class="pubTeaser">
               <img src="AboutPageAssets/teasers/paper1_teaser.png" alt="Teaser">
             </div>
-        
+
             <div class="pubInfo">
-        
               <h2 class="sectionContentTitle">
                 You Only Touch Once: One-Touch System for Personalized 3D Music Video Generation
                 (APSIPA 2025 Accepted)
               </h2>
-        
+
               <h3 class="sectionContentSubTitle">
                 Kyungjune Lee, <b>Youngjin Shin</b>, Jungwoo Huh, Sanghoon Lee
               </h3>
-        
+
               <aside class="externalResourcesNav">
-                <a class="chipLink" href="https://ieeexplore.ieee.org/document/11249334" target="_blank"><b>Paper</b></a>
+                <a class="chipLink" href="https://ieeexplore.ieee.org/document/11249334" target="_blank" rel="noopener"><b>Paper</b></a>
               </aside>
-        
             </div>
-        
           </div>
-        
         </div>
       </section>
 
@@ -398,11 +431,57 @@
         <div class="educationBlock">
           <b>Yonsei University</b>, Seoul, South Korea<br>
           B.S. in Electrical and Electronic Engineering<br>
-          <span class="muted">2020 – 2026 </span>
+          <span class="muted">2020 – 2026</span>
         </div>
       </section>
 
     </section>
   </div>
+
+  <script>
+    // ===== Scroll progress + sticky header style =====
+    (function () {
+      const progress = document.getElementById("scrollProgress");
+      const headerWrap = document.getElementById("headerWrap");
+
+      function onScroll(){
+        const doc = document.documentElement;
+        const scrollTop = doc.scrollTop || document.body.scrollTop;
+        const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+        const p = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        if (progress) progress.style.width = p.toFixed(2) + "%";
+
+        if (headerWrap) {
+          if (scrollTop > 8) headerWrap.classList.add("isScrolled");
+          else headerWrap.classList.remove("isScrolled");
+        }
+      }
+      window.addEventListener("scroll", onScroll, { passive:true });
+      onScroll();
+    })();
+
+    // ===== Reveal on scroll (IntersectionObserver) =====
+    (function () {
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) return;
+
+      const targets = [
+        ...document.querySelectorAll(".section0, .section1, .section2, .section3"),
+        ...document.querySelectorAll(".pubBlock"),
+      ];
+      targets.forEach(el => el.classList.add("reveal"));
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      targets.forEach(el => io.observe(el));
+    })();
+  </script>
 </body>
 </html>
