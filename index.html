@@ -268,7 +268,17 @@
     .edu-text{
       flex:1;
     }
+
+    /* ===== Work experience row layout ===== */
+    .work-row{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
     
+    .work-text{
+      flex:1;
+    }
     /* 모바일 대응 */
     @media (max-width:700px){
       .pubRow{
@@ -338,23 +348,47 @@
       <section class="section1">
         <h2 class="sectionTitle">Work Experience</h2>
         <hr class="sectionRule">
-
+        
         <div class="internship">
-          <img class="lab-logo" src="AboutPageAssets/teasers/kaist_teaser.png" alt="KAIST">
-          <b>Research Intern at
-            <a href="https://cvlab.kaist.ac.kr/" target="_blank" rel="noopener">Computer Vision Lab</a>
-          </b>, KAIST AI, Seoul, South Korea <span class="muted">(2025.09 – Present)</span><br>
-          Advisor: Seongryong Kim</a>
+          <div class="work-row">
+            <!-- LEFT : logo -->
+            <img class="lab-logo"
+                 src="AboutPageAssets/teasers/kaist_teaser.png"
+                 alt="KAIST">
+            <!-- RIGHT : text -->
+            <div class="work-text">
+              <b>
+                Research Intern at
+                <a href="https://cvlab.kaist.ac.kr/" target="_blank">
+                  Computer Vision Lab
+                </a>
+              </b><br>
+              KAIST AI, Seoul, South Korea
+              <span class="muted">(2025.09 – Present)</span><br>
+              Advisor: Seungryong Kim
+            </div>
+          </div>
         </div>
 
         <br>
 
         <div class="internship">
-          <img class="lab-logo" src="AboutPageAssets/teasers/yonsei_teaser.png" alt="Yonsei">
-          <b>Research Intern at
-            <a href="http://insight.yonsei.ac.kr/gnuboard/" target="_blank" rel="noopener">Multi-dimensional Insight Lab</a>
-          </b>, Yonsei University, Seoul, South Korea <span class="muted">(2025.01 – 2025.08)</span><br>
-          Advisor: Sanghoon Lee</a><br>
+          <div class="work-row">
+            <img class="lab-logo"
+                 src="AboutPageAssets/teasers/yonsei_teaser.png"
+                 alt="Yonsei">
+            <div class="work-text">
+              <b>
+                Research Intern at
+                <a href="http://insight.yonsei.ac.kr/gnuboard/" target="_blank">
+                  Multi-dimensional Insight Lab
+                </a>
+              </b><br>
+              Yonsei University, Seoul, South Korea
+              <span class="muted">(2025.01 – 2025.08)</span><br>
+              Advisor: Sanghoon Lee
+            </div>
+          </div>
         </div>
       </section>
 
