@@ -206,6 +206,39 @@
       margin-top:10px;
       font-size:17px;
     }
+    
+    /* ===== Publication horizontal layout ===== */
+    .pubRow{
+      display:flex;
+      gap:22px;
+      align-items:flex-start;
+    }
+    
+    .pubTeaser{
+      flex:0 0 260px;   /* 티저 너비 */
+    }
+    
+    .pubTeaser img,
+    .pubTeaser video{
+      width:100%;
+      border-radius:12px;
+      border:1px solid var(--line);
+    }
+    
+    .pubInfo{
+      flex:1;
+    }
+    
+    /* 모바일 대응 */
+    @media (max-width:700px){
+      .pubRow{
+        flex-direction:column;
+      }
+      .pubTeaser{
+        flex:unset;
+        width:100%;
+      }
+    }
 
     @media (max-width: 620px){
       .profilePhoto{ width:min(220px, 75vw); }
@@ -292,42 +325,68 @@
 
         <!-- Publication 2 -->
         <div class="pubBlock">
-          <div class="sectionContent">
-            <img src="AboutPageAssets/teasers/paper2_teaser.png" alt="Teaser Image">
+      
+          <div class="pubRow">
+        
+            <!-- LEFT : teaser -->
+            <div class="pubTeaser">
+              <img src="AboutPageAssets/teasers/paper2_teaser.png" alt="Teaser">
+            </div>
+        
+            <!-- RIGHT : info -->
+            <div class="pubInfo">
+        
+              <h2 class="sectionContentTitle">
+                CORAL: Correspondence Alignment for Improved Virtual Try-On
+              </h2>
+        
+              <h3 class="sectionContentSubTitle">
+                Jiyoung Kim, <b>Youngjin Shin</b>, Siyoon Jin, Dahyun Chung,
+                Jisu Nam, Tongmin Kim, Jongjae Park, Hyeonwoo Kang, Seungryong Kim
+              </h3>
+        
+              <aside class="externalResourcesNav">
+                <a class="chipLink" href="https://cvlab-kaist.github.io/CORAL/" target="_blank"><b>Project</b></a>
+                <a class="chipLink" href="https://arxiv.org/abs/2602.17636" target="_blank"><b>Paper</b></a>
+                <a class="chipLink" href="https://github.com/cvlab-kaist/CORAL" target="_blank"><b>Code</b></a>
+              </aside>
+        
+            </div>
+        
           </div>
-
-          <section class="section2Content">
-            <h2 class="sectionContentTitle">CORAL: Correspondence Alignment for Improved Virtual Try-On</h2>
-            <h3 class="sectionContentSubTitle">
-               Jiyoung Kim, <b>Youngjin Shin</b>, Siyoon Jin, Dahyun Chung, Jisu Nam, Tongmin Kim, Jongjae Park, Hyeonwoo Kang, Seungryong Kim
-            </h3>
-          </section>
-
-          <aside class="externalResourcesNav">
-            <a class="chipLink" href="https://cvlab-kaist.github.io/CORAL/" target="_blank" rel="noopener"><b>Project</b></a>
-            <a class="chipLink" href="https://arxiv.org/abs/2602.17636" target="_blank" rel="noopener"><b>Paper</b></a>
-            <a class="chipLink" href="https://github.com/cvlab-kaist/CORAL" target="_blank" rel="noopener"><b>Code</b></a>
-          </aside>
+        
         </div>
 
         <br><br>
 
         <!-- Publication 1 -->
         <div class="pubBlock">
-          <div class="sectionContent">
-            <img src="AboutPageAssets/teasers/paper2_teaser.png" alt="Teaser Image">
+        
+          <div class="pubRow">
+        
+            <div class="pubTeaser">
+              <img src="AboutPageAssets/teasers/paper2_teaser.png" alt="Teaser">
+            </div>
+        
+            <div class="pubInfo">
+        
+              <h2 class="sectionContentTitle">
+                You Only Touch Once: One-Touch System for Personalized 3D Music Video Generation
+                (APSIPA 2025 Accepted)
+              </h2>
+        
+              <h3 class="sectionContentSubTitle">
+                Kyungjune Lee, <b>Youngjin Shin</b>, Jungwoo Huh, Sanghoon Lee
+              </h3>
+        
+              <aside class="externalResourcesNav">
+                <a class="chipLink" href="https://ieeexplore.ieee.org/document/11249334" target="_blank"><b>Paper</b></a>
+              </aside>
+        
+            </div>
+        
           </div>
-
-          <section class="section2Content">
-            <h2 class="sectionContentTitle">You Only Touch Once: One-Touch System for Personalized 3D Music Video Generation (APSIPA 2025 Accepted)</h2>
-            <h3 class="sectionContentSubTitle">
-              Kyungjune Lee, <b>Youngjin Shin</b>, Jungwoo Huh, Sanghoon Lee, 
-            </h3>
-          </section>
-
-          <aside class="externalResourcesNav">
-            <a class="chipLink" href="https://ieeexplore.ieee.org/document/11249334" target="_blank" rel="noopener"><b>Paper</b></a>
-          </aside>
+        
         </div>
       </section>
 
