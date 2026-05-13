@@ -11,22 +11,21 @@
 
   <style>
     :root {
-      --bg:        #000000;
-      --surface:   #0a0a0a;
-      --card:      #111111;
-      --border:    rgba(255,255,255,0.08);
-      --border-hover: rgba(255,255,255,0.16);
-      --text:      #f5f5f7;
-      --muted:     #86868b;
-      --accent:    #ffffff;
-      --link:      #2997ff;
-      --chip-bg:   rgba(255,255,255,0.06);
-      --radius:    18px;
-      --max:       780px;
+      --bg:           #000000;
+      --surface:      #0a0a0a;
+      --card:         #111111;
+      --border:       rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.18);
+      --text:         #f5f5f7;
+      --muted:        #86868b;
+      --accent:       #ffffff;
+      --link:         #2997ff;
+      --chip-bg:      rgba(255,255,255,0.06);
+      --radius:       18px;
+      --max:          780px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -42,14 +41,7 @@
     a { color: var(--link); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ── Layout ── */
-    .wrap {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 100px 24px 120px;
-    }
-
-    /* ── Subtle noise overlay ── */
+    /* ─── Noise overlay ─── */
     body::before {
       content: '';
       position: fixed;
@@ -59,46 +51,176 @@
       z-index: 0;
     }
 
-    .wrap { position: relative; z-index: 1; }
+    /* ═══════════════════════════════════════
+       C — FROSTED GLASS NAVBAR
+    ═══════════════════════════════════════ */
+    #frosted-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 52px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      opacity: 0;
+      transform: translateY(-100%);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+    }
 
-    /* ── Header ── */
-    header {
+    #frosted-nav.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .fnav-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.3px;
+    }
+
+    .fnav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .fnav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 5px 11px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+
+    .fnav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+      text-decoration: none;
+    }
+
+    /* ═══════════════════════════════════════
+       B — STICKY SIDE NAVIGATOR
+    ═══════════════════════════════════════ */
+    #side-nav {
+      position: fixed;
+      left: max(20px, calc(50% - 390px - 140px));
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    #side-nav.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .snav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .snav-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      flex-shrink: 0;
+    }
+
+    .snav-item.active .snav-dot {
+      background: var(--accent);
+      transform: scale(1.6);
+      box-shadow: 0 0 6px rgba(255,255,255,0.4);
+    }
+
+    .snav-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s, color 0.2s;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .snav-item:hover .snav-label,
+    .snav-item.active .snav-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .snav-item.active .snav-label { color: var(--accent); }
+
+    /* ═══════════════════════════════════════
+       MAIN LAYOUT
+    ═══════════════════════════════════════ */
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px 120px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ═══════════════════════════════════════
+       C — PARALLAX HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       text-align: center;
       gap: 28px;
-      padding-bottom: 72px;
+      padding: 80px 0;
       border-bottom: 1px solid var(--border);
+      position: relative;
+      will-change: transform, opacity;
     }
 
     .profile-photo {
-      width: 120px;
-      height: 120px;
+      width: 110px; height: 110px;
       border-radius: 50%;
       overflow: hidden;
       border: 1px solid var(--border);
       background: var(--card);
-      animation: fadeUp 0.8s ease both;
+      animation: fadeUp 0.9s ease both;
     }
 
     .profile-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
     }
 
-    .profile-info {
-      animation: fadeUp 0.8s 0.1s ease both;
-    }
+    .profile-info { animation: fadeUp 0.9s 0.1s ease both; }
 
     .profile-info h1 {
-      font-size: 42px;
+      font-size: 48px;
       font-weight: 600;
-      letter-spacing: -1.2px;
+      letter-spacing: -1.5px;
       color: var(--accent);
-      line-height: 1.1;
+      line-height: 1.05;
     }
 
     .profile-tagline {
@@ -106,26 +228,24 @@
       color: var(--muted);
       font-size: 16px;
       font-weight: 400;
-      letter-spacing: 0.01em;
     }
 
     .profile-bio {
       margin-top: 20px;
       color: var(--muted);
       font-size: 15px;
-      max-width: 580px;
-      line-height: 1.75;
+      max-width: 560px;
+      line-height: 1.8;
     }
 
     .profile-bio a { color: var(--link); }
 
-    /* ── Top link pills ── */
     .top-links {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
-      animation: fadeUp 0.8s 0.2s ease both;
+      animation: fadeUp 0.9s 0.2s ease both;
     }
 
     .top-links a {
@@ -149,18 +269,61 @@
       text-decoration: none;
     }
 
-    .top-links img {
-      width: 16px;
-      height: 16px;
-      border-radius: 3px;
-      display: block;
+    .top-links img { width: 16px; height: 16px; border-radius: 3px; display: block; }
+
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: fadeUp 1s 0.7s ease both;
     }
 
-    /* ── Sections ── */
-    section.block {
-      margin-top: 64px;
-      animation: fadeUp 0.7s ease both;
+    .scroll-cue span {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
+
+    .scroll-mouse {
+      width: 22px; height: 34px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 11px;
+      display: flex;
+      justify-content: center;
+      padding-top: 5px;
+    }
+
+    .scroll-mouse-dot {
+      width: 3px; height: 6px;
+      background: var(--muted);
+      border-radius: 2px;
+      animation: scrollDot 1.8s infinite;
+    }
+
+    @keyframes scrollDot {
+      0%   { opacity: 1; transform: translateY(0); }
+      80%  { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 0; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════
+       SECTIONS — scroll reveal
+    ═══════════════════════════════════════ */
+    .block {
+      margin-top: 80px;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .block.revealed { opacity: 1; transform: translateY(0); }
 
     .section-header {
       display: flex;
@@ -185,12 +348,8 @@
       background: var(--border);
     }
 
-    /* ── Interest tags ── */
-    .interest-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    /* Interest tags */
+    .interest-tags { display: flex; flex-wrap: wrap; gap: 10px; }
 
     .interest-tag {
       background: var(--chip-bg);
@@ -199,17 +358,12 @@
       padding: 8px 16px;
       border-radius: 980px;
       font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.01em;
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .interest-tag:hover {
-      border-color: var(--border-hover);
-      background: rgba(255,255,255,0.08);
-    }
+    .interest-tag:hover { border-color: var(--border-hover); background: rgba(255,255,255,0.08); }
 
-    /* ── Work / Edu cards ── */
+    /* Entry cards */
     .entry-card {
       display: flex;
       align-items: flex-start;
@@ -219,44 +373,25 @@
     }
 
     .entry-card:first-child { padding-top: 0; }
-    .entry-card:last-child { border-bottom: none; padding-bottom: 0; }
+    .entry-card:last-child  { border-bottom: none; padding-bottom: 0; }
 
     .entry-logo {
-      flex: 0 0 48px;
-      height: 48px;
+      flex: 0 0 48px; height: 48px;
       border-radius: 12px;
       overflow: hidden;
       background: var(--card);
       border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .entry-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .entry-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .entry-body { flex: 1; }
 
-    .entry-title {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1.4;
-    }
-
+    .entry-title { font-size: 16px; font-weight: 500; color: var(--text); line-height: 1.4; }
     .entry-title a { color: var(--text); }
     .entry-title a:hover { color: var(--link); text-decoration: none; }
 
-    .entry-sub {
-      margin-top: 3px;
-      font-size: 14px;
-      color: var(--muted);
-    }
+    .entry-sub { margin-top: 3px; font-size: 14px; color: var(--muted); }
 
     .entry-period {
       display: inline-block;
@@ -277,19 +412,10 @@
       color: var(--muted);
     }
 
-    .entry-details li { 
-      position: relative;
-      padding-left: 14px;
-      margin-bottom: 4px;
-    }
+    .entry-details li { position: relative; padding-left: 14px; margin-bottom: 4px; }
+    .entry-details li::before { content: '·'; position: absolute; left: 0; }
 
-    .entry-details li::before {
-      content: '·';
-      position: absolute;
-      left: 0;
-    }
-
-    /* ── Publications ── */
+    /* Publications */
     .pub-year-label {
       font-size: 13px;
       font-weight: 600;
@@ -313,10 +439,7 @@
       transition: border-color 0.25s, transform 0.25s;
     }
 
-    .pub-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
-    }
+    .pub-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
 
     .pub-teaser {
       flex: 0 0 140px;
@@ -326,37 +449,12 @@
       border: 1px solid var(--border);
     }
 
-    .pub-teaser img {
-      width: 100%;
-      height: 90px;
-      object-fit: cover;
-      display: block;
-    }
-
+    .pub-teaser img { width: 100%; height: 90px; object-fit: cover; display: block; }
     .pub-info { flex: 1; }
-
-    .pub-title {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1.45;
-      margin-bottom: 6px;
-    }
-
-    .pub-authors {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
-
+    .pub-title { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.45; margin-bottom: 6px; }
+    .pub-authors { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
     .pub-authors b { color: var(--text); }
-
-    .pub-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .pub-links { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .chip {
       display: inline-flex;
@@ -373,39 +471,69 @@
       text-decoration: none;
     }
 
-    .chip:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: var(--border-hover);
-      text-decoration: none;
-    }
+    .chip:hover { background: rgba(255,255,255,0.1); border-color: var(--border-hover); text-decoration: none; }
 
-    /* ── Animations ── */
+    /* Animations */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    section.block:nth-child(1) { animation-delay: 0.15s; }
-    section.block:nth-child(2) { animation-delay: 0.25s; }
-    section.block:nth-child(3) { animation-delay: 0.35s; }
-    section.block:nth-child(4) { animation-delay: 0.45s; }
+    /* Mobile */
+    @media (max-width: 1000px) { #side-nav { display: none; } }
 
-    /* ── Mobile ── */
     @media (max-width: 600px) {
-      .wrap { padding: 60px 18px 80px; }
-      .profile-info h1 { font-size: 32px; }
+      .wrap { padding: 0 18px 80px; }
+      .profile-info h1 { font-size: 36px; }
       .pub-card { flex-direction: column; }
       .pub-teaser { flex: unset; width: 100%; }
       .pub-teaser img { height: 160px; }
+      .fnav-links { display: none; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- C: Frosted Navbar -->
+  <nav id="frosted-nav">
+    <span class="fnav-name">Youngjin Shin</span>
+    <div class="fnav-links">
+      <a href="#sec-interests">Interests</a>
+      <a href="#sec-work">Work</a>
+      <a href="#sec-pubs">Publications</a>
+      <a href="#sec-edu">Education</a>
+    </div>
+  </nav>
+
+  <!-- B: Side Navigator -->
+  <nav id="side-nav" aria-label="Section navigator">
+    <a class="snav-item" href="#hero">
+      <div class="snav-dot"></div>
+      <span class="snav-label">Home</span>
+    </a>
+    <a class="snav-item" href="#sec-interests">
+      <div class="snav-dot"></div>
+      <span class="snav-label">Interests</span>
+    </a>
+    <a class="snav-item" href="#sec-work">
+      <div class="snav-dot"></div>
+      <span class="snav-label">Work</span>
+    </a>
+    <a class="snav-item" href="#sec-pubs">
+      <div class="snav-dot"></div>
+      <span class="snav-label">Publications</span>
+    </a>
+    <a class="snav-item" href="#sec-edu">
+      <div class="snav-dot"></div>
+      <span class="snav-label">Education</span>
+    </a>
+  </nav>
+
   <div class="wrap">
 
-    <!-- ══ Header ══ -->
-    <header>
+    <!-- C: Parallax Hero -->
+    <header id="hero">
       <div class="profile-photo">
         <img src="AboutPageAssets/images/profile1.jpg" alt="Youngjin Shin">
       </div>
@@ -415,7 +543,8 @@
         <p class="profile-tagline">Research Intern · KAIST AI</p>
         <p class="profile-bio">
           Focused on understanding and improving AI models through internal mechanisms and representations.
-          Interested in representation learning, 3D visual understanding, and how models reason through structured analysis.<br><br>
+          Interested in representation learning, 3D visual understanding, and how models reason through structured analysis.
+          <br><br>
           <a href="mailto:yeongjins916@gmail.com">yeongjins916@gmail.com</a>
         </p>
       </div>
@@ -430,10 +559,17 @@
           GitHub
         </a>
       </nav>
+
+      <div class="scroll-cue">
+        <div class="scroll-mouse">
+          <div class="scroll-mouse-dot"></div>
+        </div>
+        <span>Scroll</span>
+      </div>
     </header>
 
-    <!-- ══ Interest Areas ══ -->
-    <section class="block">
+    <!-- Interests -->
+    <section class="block" id="sec-interests">
       <div class="section-header"><h2>Interests</h2></div>
       <div class="interest-tags">
         <span class="interest-tag">Representation Learning</span>
@@ -442,8 +578,8 @@
       </div>
     </section>
 
-    <!-- ══ Work Experience ══ -->
-    <section class="block">
+    <!-- Work -->
+    <section class="block" id="sec-work">
       <div class="section-header"><h2>Work Experience</h2></div>
 
       <div class="entry-card">
@@ -475,12 +611,11 @@
       </div>
     </section>
 
-    <!-- ══ Publications ══ -->
-    <section class="block">
+    <!-- Publications -->
+    <section class="block" id="sec-pubs">
       <div class="section-header"><h2>Publications</h2></div>
 
       <div class="pub-year-label">2026</div>
-
       <div class="pub-card">
         <div class="pub-teaser">
           <img src="AboutPageAssets/teasers/paper2_teaser.png" alt="CORAL teaser">
@@ -500,7 +635,6 @@
       </div>
 
       <div class="pub-year-label">2025</div>
-
       <div class="pub-card">
         <div class="pub-teaser">
           <img src="AboutPageAssets/teasers/paper1_teaser.png" alt="YOTO teaser">
@@ -517,8 +651,8 @@
       </div>
     </section>
 
-    <!-- ══ Academic History ══ -->
-    <section class="block">
+    <!-- Education -->
+    <section class="block" id="sec-edu">
       <div class="section-header"><h2>Education</h2></div>
 
       <div class="entry-card">
@@ -538,5 +672,71 @@
     </section>
 
   </div>
+
+  <script>
+    const hero       = document.getElementById('hero');
+    const frostedNav = document.getElementById('frosted-nav');
+    const sideNav    = document.getElementById('side-nav');
+    const sectionIds = ['hero','sec-interests','sec-work','sec-pubs','sec-edu'];
+    const snavItems  = document.querySelectorAll('.snav-item');
+
+    function setActive(id) {
+      snavItems.forEach(el =>
+        el.classList.toggle('active', el.getAttribute('href') === '#' + id)
+      );
+    }
+
+    function onScroll() {
+      const sy = window.scrollY;
+      const hh = hero.offsetHeight;
+
+      /* C — parallax: fade + drift upward */
+      const p = Math.min(sy / (hh * 0.55), 1);
+      hero.style.opacity   = String(1 - p * 0.9);
+      hero.style.transform = `translateY(${sy * 0.22}px)`;
+
+      /* C — frosted navbar: appear after 40% of hero */
+      frostedNav.classList.toggle('visible', sy > hh * 0.38);
+
+      /* B — side nav: appear after 30% of hero */
+      sideNav.classList.toggle('visible', sy > hh * 0.28);
+
+      /* B — active dot */
+      let cur = sectionIds[0];
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.5) cur = id;
+      });
+      setActive(cur);
+    }
+
+    /* Scroll reveal for sections */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('revealed');
+
+        /* Stagger children */
+        const children = e.target.querySelectorAll('.pub-card, .entry-card, .interest-tag');
+        children.forEach((el, i) => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(16px)';
+          el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }, 80 + i * 75);
+        });
+
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.block').forEach(el => io.observe(el));
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+
 </body>
 </html>
