@@ -503,6 +503,7 @@
       <a href="#sec-work">Work</a>
       <a href="#sec-pubs">Publications</a>
       <a href="#sec-edu">Education</a>
+      <a href="#sec-playground">Playground</a>
     </div>
   </nav>
 
@@ -527,6 +528,10 @@
     <a class="snav-item" href="#sec-edu">
       <div class="snav-dot"></div>
       <span class="snav-label">Education</span>
+    </a>
+    <a class="snav-item" href="#sec-playground">
+      <div class="snav-dot"></div>
+      <span class="snav-label">Playground</span>
     </a>
   </nav>
 
@@ -687,13 +692,36 @@
       </div>
     </section>
 
+    <!-- Playground -->
+    <section class="block" id="sec-playground">
+      <div class="section-header"><h2>Playground</h2></div>
+
+      <div class="pub-card">
+        <div class="pub-teaser">
+          <img src="AboutPageAssets/teasers/featviz_teaser.png" alt="Feature Visualization playground">
+        </div>
+        <div class="pub-info">
+          <div class="pub-title">Feature Visualization · InceptionV1</div>
+          <div class="pub-authors">
+            An interactive playground reproducing the technique from Olah et al.,
+            &ldquo;Feature Visualization&rdquo; (Distill, 2017) &mdash; explore channels,
+            neurons, layers, logits, probabilities, and joint optimizations.
+          </div>
+          <div class="pub-links">
+            <a class="chip" href="https://jaden-shin-1214.github.io/feature-visualization/" target="_blank">Live</a>
+            <a class="chip" href="https://github.com/Jaden-Shin-1214/feature-visualization" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <script>
     const hero       = document.getElementById('hero');
     const frostedNav = document.getElementById('frosted-nav');
     const sideNav    = document.getElementById('side-nav');
-    const sectionIds = ['hero','sec-interests','sec-work','sec-pubs','sec-edu'];
+    const sectionIds = ['hero','sec-interests','sec-work','sec-pubs','sec-edu','sec-playground'];
     const snavItems  = document.querySelectorAll('.snav-item');
 
     function setActive(id) {
