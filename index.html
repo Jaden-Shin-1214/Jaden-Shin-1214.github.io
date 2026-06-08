@@ -504,6 +504,7 @@
       <a href="#sec-pubs">Publications</a>
       <a href="#sec-edu">Education</a>
       <a href="#sec-playground">Personal Playground</a>
+      <a href="#sec-analysis">Analysis Blog</a>
     </div>
   </nav>
 
@@ -532,6 +533,10 @@
     <a class="snav-item" href="#sec-playground">
       <div class="snav-dot"></div>
       <span class="snav-label">Personal Playground</span>
+    </a>
+    <a class="snav-item" href="#sec-analysis">
+      <div class="snav-dot"></div>
+      <span class="snav-label">Analysis Blog</span>
     </a>
   </nav>
 
@@ -734,13 +739,32 @@
       </div>
     </section>
 
+    <section class="block" id="sec-analysis">
+      <div class="section-header"><h2>Analysis Blog</h2></div>
+
+      <div class="pub-card">
+        <div class="pub-info">
+          <div class="pub-title">The Reconstruction Paradox &mdash; how a frozen encoder's discarded detail comes back</div>
+          <div class="pub-authors">
+            A close reading of <b>RAEv2</b>'s decoder on <b>DINOv3-L</b>: a frozen encoder throws detail away, yet its
+            decoder reconstructs pixels. The post traces how the decoder <em>mirrors</em> the encoder in frequency and
+            representation, why the latent (K) decides what can be reconstructed, where the
+            reconstruction&ndash;generation trade-off comes from, and what it means to build a decoder that mirrors on purpose.
+          </div>
+          <div class="pub-links">
+            <a class="chip" href="https://jaden-shin-1214.github.io/analysis-blog-raev2/" target="_blank">Read</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <script>
     const hero       = document.getElementById('hero');
     const frostedNav = document.getElementById('frosted-nav');
     const sideNav    = document.getElementById('side-nav');
-    const sectionIds = ['hero','sec-interests','sec-work','sec-pubs','sec-edu','sec-playground'];
+    const sectionIds = ['hero','sec-interests','sec-work','sec-pubs','sec-edu','sec-playground','sec-analysis'];
     const snavItems  = document.querySelectorAll('.snav-item');
 
     function setActive(id) {
